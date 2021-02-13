@@ -1,12 +1,12 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => '1.0.0+no-version-set',
-    'version' => '1.0.0.0',
+    'pretty_version' => 'dev-master',
+    'version' => 'dev-master',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => '12c33f016b8ffd90430ce04580df40c258bbda69',
     'name' => 'rodrigo-lucena/inventariorq',
   ),
   'versions' => 
@@ -22,12 +22,12 @@
     ),
     'rodrigo-lucena/inventariorq' => 
     array (
-      'pretty_version' => '1.0.0+no-version-set',
-      'version' => '1.0.0.0',
+      'pretty_version' => 'dev-master',
+      'version' => 'dev-master',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => '12c33f016b8ffd90430ce04580df40c258bbda69',
     ),
     'slim/slim' => 
     array (

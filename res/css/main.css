@@ -1,0 +1,41 @@
+body{
+	height: 90vh;
+	box-shadow: 5px 30px 5px black;
+}
+#header{
+	border-bottom: 3px rgba(1,153,185,1) solid;
+	height: 8vh;
+	background-color: rgba(0,0,80,.9);
+}
+#h3 {
+	display: inline;
+	color: white;
+}
+#h4 {
+	display: block;
+	margin-right: 0px;
+	color: white;
+}
+#v-pills-tab{
+	height: 86vh
+}
+.d-flex{
+	background-color: black;
+	height: 86vh
+}
+.d-flex .nav {
+	padding: 10px 0px 10px 10px;
+	color: white;
+}
+
+.d-flex .nav-link{
+	text-decoration: none;
+	color: white;
+	font-weight: bolder;
+}
+
+#h1{
+	color: white;
+	
+	margin: 20px auto 20px auto; 
+}

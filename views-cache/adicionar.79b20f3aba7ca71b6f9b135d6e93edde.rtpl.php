@@ -1,0 +1,131 @@
+<?php if(!class_exists('Rain\Tpl')){exit;}?><div class="tab-pane" style="padding: 5px 5px 5px 5px">
+			    <section class="content-header" >
+					<h1><i class="far fa-plus-square" style="color: black"></i> Entrada de reagentes</h1>
+				</section>
+			    <form class="row g-3 fs-4" style="margin-top: 10px; padding: 10px 10px 10px 10px">
+				  <div class="col-md-5">
+				    <label for="nomeR" class="form-label">Nome</label>
+				    <input type="text" class="form-control fs-4" id="nomeR" required>
+				  </div>
+				  <div class="col-md-3">
+				    <label for="formula" class="form-label">Fórmula</label>
+				    <input type="text" class="form-control fs-4" id="formula" required>
+				  </div>
+				  <div class="col-md-4">
+				    <label for="marca" class="form-label">Marca </label>
+				    <a href="" data-bs-toggle="modal" data-bs-target="#marcModal"><span data-bs-toggle="tooltip" data-bs-placement="top" title="Adicionar nova marca"><i class="fas fa-plus-circle fs-2" ></i></span></a>
+						<!-- Modal -->
+						<div class="modal" id="marcModal" tabindex="-1" aria-labelledby="marcModalLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="marcModalLabel">Nova marca</h5>
+						        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						      </div>					      
+						      <div class="modal-body row">
+						          <div class="mb-3">
+						            <label for="mtext" class="col-form-label">Nome:</label>
+						            <div class="row">
+							            <div class="col-11 fs-3"><input type="text" class="form-control col-10 fs-3" id="mtext"></div>
+							            <div class="col-1 position-relative"><a class="position-absolute top-50 start-50 translate-middle fs-3" href="" data-bs-toggle="modal" data-bs-target="#marcModal"><i class="fas fa-plus-circle fs-1 my-auto" ></i></a></div>
+						            </div>						          
+						          </div>					      
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-secondary fs-4" data-bs-dismiss="modal">Fechar</button>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+						<!-- fim do modal -->
+				    <select class="form-select fs-4" id="marca" required="">
+				    	<option selected>Synth</option>
+				    	<option>Sigma</option>
+				    	<option>Vetec</option>
+				    	<option>Merck</option>	
+				    </select>				    
+				  </div>
+				  <div class="col-md-3">
+				  	<input class="form-check-input" type="radio" name="medida" id="volume" checked="">
+				    <label for="volume" class="form-check-label">Volume(mL)</label>
+				    <input class="form-check-input" type="radio" name="medida" id="massa">
+					<label for="massa" class="form-label">Massa(g)</label>
+				    <input type="text" class="form-control fs-4" id="medida" required>
+				  </div>
+				  <div class="col-md-2">
+				    <label for="quantidade" class="form-label">Quantidade</label>
+				    <input type="number" class="form-control fs-4" id="quantidade" min="0" max="200" step="1" required>
+				  </div>
+				  <div class="col-md-2">
+				    <label for="validade" class="form-label">Validade</label>
+				    <input type="date" class="form-control fs-4" id="validade" required>
+				  </div>
+				  <div class="col-md-5">
+				    <label for="controle" class="form-label">Controle</label>
+				    <select class="form-select fs-4" id="controle">
+				    	<option selected>Sem controle</option>
+				    	<option>Polícia Civil</option>
+				    	<option>Polícia Federal</option>
+				    	<option>Exército</option>	
+				    </select>
+				  </div>
+				  <div class="col-md-3">
+				    <label for="compra" class="form-label">Data de compra</label>
+				    <input type="date" class="form-control fs-4" id="compra" required>
+				  </div>
+				  <div class="col-md-4">
+				    <label for="lab" class="form-label">Laboratório</label>
+				    <select class="form-select fs-4" id="lab">
+				    	<option selected>Ciências da Terra</option>
+				    	<option>Ecologia</option>
+				    	<option>Química</option>
+				    	<option>Biomedicina</option>	
+				    </select>
+				  </div>
+				  <div class="col-md-5">
+				    <label for="loc" class="form-label">Localização</label>
+				    <input type="text" class="form-control fs-4" id="loc" required>
+				  </div>
+				  <div class="col-md-5">
+				    <label for="resp" class="form-label">Responsável </label>
+				    <a href="" data-bs-toggle="modal" data-bs-target="#respModal"><span data-bs-toggle="tooltip" data-bs-placement="top" title="Adicionar novo responsável"><i class="fas fa-plus-circle fs-2" ></i></span></a>
+				    	<!-- modal -->
+						<div class="modal " id="respModal" tabindex="-1" aria-labelledby="respModalLabel" aria-hidden="true">
+						  <div class="modal-dialog">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="respModalLabel">Novo responsável</h5>
+						        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						      </div>
+						      <div class="modal-body">
+						        
+						          <div class="mb-3">
+						            <label for="Rtext" class="col-form-label">Nome:</label>
+						            <div class="row">
+							            <div class="col-11 fs-3"><input type="text" class="form-control col-10 fs-3" id="Rtext"></div>
+							            <div class="col-1 position-relative"><a class="position-absolute top-50 start-50 translate-middle fs-3" href="" data-bs-toggle="modal" data-bs-target="#respModal"><i class="fas fa-plus-circle fs-1 my-auto" ></i></a></div>
+						            </div>
+						          </div>
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-secondary fs-4" data-bs-dismiss="modal">Fechar</button>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+						<!-- fim do modal -->
+				    <select class="form-select fs-4" id="resp" required="">
+				    	<option selected>João Vicente</option>
+				    	<option>Pedro Silva</option>
+				    	<option>Leandro Santos</option>
+				    	<option>Augusto Lima</option>	
+				    </select>				   
+				  </div>
+				  <div class="col-12">
+				    <button class="btn btn-primary fs-4" type="submit"><i class="far fa-save"></i> Salvar</button>
+				  </div>
+				  <div class="col-12">
+				    <button type="button" class="btn btn-dark fs-4" data-bs-toggle="modal" data-bs-target="#Modal" data-bs-whatever="@mdo"><i class="fas fa-file-import"></i> Importar lista...</button>
+				  </div>
+				</form>
+		    </div>

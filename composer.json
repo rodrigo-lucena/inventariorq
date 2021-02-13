@@ -15,7 +15,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"": "vendor\\rodrigo-lucena\\php-classes\\src"
+			"Invent\\": "vendor\\invent\\php-classes\\src"
 		}
 		}
 
