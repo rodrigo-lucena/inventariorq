@@ -2,13 +2,13 @@
 <html lang="pt-br"> 
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="res/css/main.css">
+	<link rel="stylesheet" type="text/css" href="/res/css/main.css">
 	<!--glyphicon-->
-	<link href="res/bootstrap3/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/res/bootstrap3/css/bootstrap.min.css" rel="stylesheet">
 	<!-- font awesome -->
-	<link href="res/fontawesome/css/all.css" rel="stylesheet">
+	<link href="/res/fontawesome/css/all.css" rel="stylesheet">
 	<!-- Bootstrap -->
-	<link href="res/bootstrap5/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/res/bootstrap5/css/bootstrap.min.css" rel="stylesheet">
 	<title>InventárioRQ</title>
 </head>
 	<body>
@@ -17,7 +17,7 @@
 		<div class="row m-0 px-5" id="header" >
 			<div class="col-6 position-relative" id="headerL">
 				<div class="position-absolute top-50 start-0 translate-middle-y" >
-					<img src="res/imgs/logo.png" width="30">
+					<img src="/res/imgs/logo.png" width="30">
 					<h4 id="h3">Inventário<b>RQ</b></h3>			
 				</div>	
 			</div>

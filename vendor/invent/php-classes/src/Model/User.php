@@ -11,22 +11,10 @@ class User extends Model{
 	public static function login($login, $password)
 	{
 		$sql = new Sql();
-		/*
-		$results = $sql->select("SELECT * FROM usuario WHERE login = :LOGIN", array(
-			":LOGIN"=>$login
-		));
-		
-		*/
 		$results = $sql->select("SELECT u.idusuario, u.nome, u.sobrenome, u.email, u.login, u.senha, r.responsavel, l.laboratorio, u.tipo, u.situacao FROM usuario AS u JOIN responsaveis_r AS r JOIN laboratorios_r AS l
 			ON u.idresponsavel = r.idresponsavel and u.idlaboratorios = l.idlaboratorios WHERE login = :LOGIN", array(
 			":LOGIN"=>$login
 		));
-
-
-
-
-
-
 
 		if (count($results) === 0)
 		{
@@ -75,7 +63,7 @@ class User extends Model{
 	}
 	public static function listAll($sit=1){
 		$sql = new Sql();
-		return $sql->select("SELECT u.nome, u.sobrenome, u.email, u.login, r.responsavel, u.tipo FROM usuario AS u LEFT OUTER JOIN responsaveis_r AS r
+		return $sql->select("SELECT u.idusuario, u.nome, u.sobrenome, u.email, u.login, r.responsavel, u.tipo FROM usuario AS u LEFT OUTER JOIN responsaveis_r AS r
 			ON u.idresponsavel = r.idresponsavel
 			WHERE u.situacao = :SIT
 			ORDER BY u.nome",array(":SIT"=>$sit));

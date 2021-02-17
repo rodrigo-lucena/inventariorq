@@ -26,8 +26,8 @@
 		                    <td><?php echo htmlspecialchars( $value1["responsavel"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
 		                    <td><?php if( $value1["tipo"] == 0 ){ ?>Administrador<?php }else{ ?>Usuário<?php } ?></td>
 		                    <td style="text-align: right">
-		                      <a href="" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
-		                      <a href="/consulta" onclick="return confirm('Deseja realmente excluir este usuário?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+		                      <a href="/usuarios/<?php echo htmlspecialchars( $value1["idusuario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
+		                      <a href="/usuarios/<?php echo htmlspecialchars( $value1["idusuario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/delete" onclick="return confirm('Deseja realmente excluir este usuário?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
 		                    </td>
 		                  </tr>
 		                  <?php } ?>
