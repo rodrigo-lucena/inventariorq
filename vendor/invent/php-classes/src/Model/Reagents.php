@@ -30,8 +30,27 @@ class Reagents extends User{
 	}
 	public function save(){
 		$sql = new Sql();
-		$sql->select("CALL reagent_save()")
 
+		$sql->select("CALL reagent_save(:nome, :formula, :marca, :volume_massa, :quantidade, :validade, :controle, :compra, :laboratorio, :localizacao, :responsavel)", array(
+			":nome"=>$this->getnome(),
+			":formula"=>$this->getformula(),
+			":marca"=>$this->getmarca(),
+			":volume_massa"=>$this->getvolume_massa().$this->getunidade(),
+			":quantidade"=>$this->getquantidade(),
+			":validade"=>$this->getvalidade(),
+			":controle"=>$this->getcontrole(),
+			":compra"=>$this->getcompra(),
+			":laboratorio"=>$this->getlaboratorio(),
+			":localizacao"=>$this->getlocalizacao(),
+			":responsavel"=>$this->getresponsavel()
+		));
+
+
+	}
+	public static function itens($categoria){
+		$sql = new Sql();
+		return $sql->select("SELECT * FROM ".$categoria);
+		//return $sql->select("SELECT * FROM marcas_r");
 	}
 }
 ?>

@@ -63,6 +63,39 @@ $app->get('/consulta', function() {
 
 });
 
+$app->get('/adicionar/responsavel', function(){
+	User::verifyLogin();
+	
+	$count = User::countSol()[0];
+	$info = array_merge($_SESSION[User::SESSION],$count);
+	unset($info['senha']);
+	$responsavel = Reagents::itens("responsaveis_r");
+	$page = new Page(array("data"=>array("info"=>$info)));
+	$page->setTpl("adicionar-responsavel", array("responsavel"=>$responsavel));
+});
+
+$app->get('/adicionar/laboratorio', function(){
+	User::verifyLogin();
+	
+	$count = User::countSol()[0];
+	$info = array_merge($_SESSION[User::SESSION],$count);
+	unset($info['senha']);
+	$laboratorio = Reagents::itens("laboratorios_r");
+	$page = new Page(array("data"=>array("info"=>$info)));
+	$page->setTpl("adicionar-laboratorio", array("laboratorio"=>$laboratorio));
+});
+
+$app->get('/adicionar/marca', function(){
+	User::verifyLogin();
+	
+	$count = User::countSol()[0];
+	$info = array_merge($_SESSION[User::SESSION],$count);
+	unset($info['senha']);
+	$marca = Reagents::itens("marcas_r");
+	$page = new Page(array("data"=>array("info"=>$info)));
+	$page->setTpl("adicionar-marca", array("marca"=>$marca));
+});
+
 $app->get('/adicionar', function() {
 	User::verifyLogin();
 	
@@ -80,9 +113,14 @@ $app->post('/adicionar', function() {
 
 	$reagent = new Reagents();
 	$reagent->setData($_POST);
+	/*
+	var_dump($reagent->getcontrole());
+	exit;
+	*/
 
-	var_dump($reagent);
-	
+	$reagent->save();
+
+	header("Location: /adicionar");
 	exit;
 
 

@@ -13,31 +13,8 @@
 				  </div>
 				  <div class="col-md-4">
 				    <label for="marca" class="form-label">Marca </label>
-				    <a href="" data-bs-toggle="modal" data-bs-target="#marcModal"><span data-bs-toggle="tooltip" data-bs-placement="top" title="Adicionar nova marca"><i class="fas fa-plus-circle fs-2" ></i></span></a>
-						<!-- Modal -->
-						<div class="modal" id="marcModal" tabindex="-1" aria-labelledby="marcModalLabel" aria-hidden="true">
-						  <div class="modal-dialog">
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <h5 class="modal-title" id="marcModalLabel">Nova marca</h5>
-						        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						      </div>					      
-						      <div class="modal-body row">
-						          <div class="mb-3">
-						            <label for="mtext" class="col-form-label">Nome:</label>
-						            <div class="row">
-							            <div class="col-11 fs-3"><input type="text" class="form-control col-10 fs-3" id="mtext"></div>
-							            <div class="col-1 position-relative"><a class="position-absolute top-50 start-50 translate-middle fs-3" href="" data-bs-toggle="modal" data-bs-target="#marcModal"><i class="fas fa-plus-circle fs-1 my-auto" ></i></a></div>
-						            </div>						          
-						          </div>					      
-						      </div>
-						      <div class="modal-footer">
-						        <button type="button" class="btn btn-secondary fs-4" data-bs-dismiss="modal">Fechar</button>
-						      </div>
-						    </div>
-						  </div>
-						</div>
-						<!-- fim do modal -->
+				    <a href="/adicionar/marca" ><span data-bs-toggle="tooltip" title="Editar marca"><i class="fas fa-edit fs-2" ></i></span></a>
+						
 				    <select class="form-select fs-4" id="marca" name="marca" required="">
 				    	<?php $counter1=-1;  if( isset($lists["0"]) && ( is_array($lists["0"]) || $lists["0"] instanceof Traversable ) && sizeof($lists["0"]) ) foreach( $lists["0"] as $key1 => $value1 ){ $counter1++; ?>
 				    	<option><?php echo htmlspecialchars( $value1["marca"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
@@ -49,7 +26,7 @@
 				    <label for="volume" class="form-check-label">Volume(mL)</label>
 				    <input class="form-check-input" type="radio" name="unidade" value="g" id="massa">
 					<label for="massa" class="form-label">Massa(g)</label>
-				    <input type="text" class="form-control fs-4" id="medida" name="volume_massa" required>
+				    <input type="number" class="form-control fs-4" id="medida" name="volume_massa" required>
 				  </div>
 				  <div class="col-md-2">
 				    <label for="quantidade" class="form-label">Quantidade</label>
@@ -61,7 +38,7 @@
 				  </div>
 				  <div class="col-md-5">
 				    <label for="controle" class="form-label">Controle</label>
-				    <select class="form-select fs-4" id="controle">
+				    <select class="form-select fs-4" id="controle" name="controle">
 				    	<?php $counter1=-1;  if( isset($lists["1"]) && ( is_array($lists["1"]) || $lists["1"] instanceof Traversable ) && sizeof($lists["1"]) ) foreach( $lists["1"] as $key1 => $value1 ){ $counter1++; ?>
 				    	<option selected=""><?php echo htmlspecialchars( $value1["controle"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
 				    	<?php } ?>
@@ -74,6 +51,7 @@
 				  </div>
 				  <div class="col-md-4">
 				    <label for="lab" class="form-label">Laboratório</label>
+				    <a href="/adicionar/laboratorio" ><span data-bs-toggle="tooltip" title="Editar laboratório"><i class="fas fa-edit fs-2" ></i></span></a>
 				    <select class="form-select fs-4" id="lab" name="laboratorio">
 				    	<?php $counter1=-1;  if( isset($lists["2"]) && ( is_array($lists["2"]) || $lists["2"] instanceof Traversable ) && sizeof($lists["2"]) ) foreach( $lists["2"] as $key1 => $value1 ){ $counter1++; ?>
 				    	<option><?php echo htmlspecialchars( $value1["laboratorio"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
@@ -86,7 +64,7 @@
 				  </div>
 				  <div class="col-md-5">
 				    <label for="resp" class="form-label">Responsável </label>
-				    <a href="" data-bs-toggle="modal" data-bs-target="#respModal"><span data-bs-toggle="tooltip" data-bs-placement="top" title="Adicionar novo responsável"><i class="fas fa-plus-circle fs-2" ></i></span></a>
+				    <a href="/adicionar/responsavel" ><span data-bs-toggle="tooltip" title="Editar responsável"><i class="fas fa-edit fs-2" ></i></span></a>
 				    	<!-- modal -->
 						<div class="modal " id="respModal" tabindex="-1" aria-labelledby="respModalLabel" aria-hidden="true">
 						  <div class="modal-dialog">
