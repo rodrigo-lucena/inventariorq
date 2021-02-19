@@ -9,7 +9,7 @@ class Reagents extends User{
 	public static function search($reagente,$responsavel,$base,$controle,$validade){
 		$sql = new Sql();
 		
-		$command = "SELECT r.idreagente, r.nome, r.formula, m.marca, r.volume_massa, r.quantidade, r.validade, l.laboratorio, r.localizacao, rp.responsavel FROM reagentes AS r JOIN marcas_r AS m JOIN controle_r AS c JOIN laboratorios_r AS l JOIN responsaveis_r AS rp ON r.idmarca = m.idmarca AND r.idcontrole = c.idcontrole AND r.idlaboratorios = l.idlaboratorios 	AND r.idresponsavel = rp.idresponsavel WHERE r.nome LIKE :REAGENTE AND rp.responsavel LIKE :RESPONSAVEL AND l.laboratorio LIKE :BASE AND c.idcontrole ".$controle.$validade;
+		$command = "SELECT r.idreagente, r.nome, r.formula, m.marca, r.volume_massa, r.quantidade, r.validade, l.laboratorio, r.localizacao, rp.responsavel FROM reagentes AS r JOIN marca_r AS m JOIN controle_r AS c JOIN laboratorio_r AS l JOIN responsavel_r AS rp ON r.idmarca = m.idmarca AND r.idcontrole = c.idcontrole AND r.idlaboratorio = l.idlaboratorio 	AND r.idresponsavel = rp.idresponsavel WHERE r.nome LIKE :REAGENTE AND rp.responsavel LIKE :RESPONSAVEL AND l.laboratorio LIKE :BASE AND c.idcontrole ".$controle.$validade;
 
 		return $sql->select($command, array(":REAGENTE"=>"%".$reagente."%", ":RESPONSAVEL"=>"%".$responsavel."%", ":BASE"=>"%".$base."%")
 			);
@@ -17,7 +17,7 @@ class Reagents extends User{
 	}
 	public static function lists(){
 		$sql = new Sql();
-		$list=array("marca"=>"marcas_r", "controle"=>"controle_r", "laboratorio"=>"laboratorios_r", "responsavel"=>"responsaveis_r");
+		$list=array("marca"=>"marca_r", "controle"=>"controle_r", "laboratorio"=>"laboratorio_r", "responsavel"=>"responsavel_r");
 
 		$lists=array();
 
@@ -44,13 +44,22 @@ class Reagents extends User{
 			":localizacao"=>$this->getlocalizacao(),
 			":responsavel"=>$this->getresponsavel()
 		));
-
-
 	}
+	public static function saveItem($tabela,$atributo,$value){
+		$sql = new Sql();
+		$sql->select("INSERT INTO ".$tabela." (".$atributo.") VALUES (:VALUE)", array(":VALUE"=>$value));
+
+	} 
+
 	public static function itens($categoria){
 		$sql = new Sql();
 		return $sql->select("SELECT * FROM ".$categoria);
-		//return $sql->select("SELECT * FROM marcas_r");
+		
+	}
+	public static function deleteItem($categoria, $iditem){
+		$sql = new Sql();
+		$sql->select("DELETE FROM ".$categoria."_r WHERE id".$categoria." = :IDITEM", array(":IDITEM"=>$iditem));
+
 	}
 }
 ?>

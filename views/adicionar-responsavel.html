@@ -2,21 +2,22 @@
     <section class="content-header" >
 		<h1><i class="fas fa-tasks" style="color: black"></i> Editar responsáveis</h1>
 	</section>
-    <form class="row g-2 fs-4" action="/adicionar" method="post" style="margin-top: 10px; padding: 10px 10px 10px 10px">
+	{$item="responsavel"}
+    <form class="row g-2 fs-4" action="/adicionar/item" method="post" style="margin-top: 10px; padding: 10px 10px 10px 10px">
 	  <legend> Incluir responsável</legend>
 	  <div class="row">
-	  	<input class="col form-control fs-4" type="text" name="Nmarca" required>
-	  	<span class="col-5 position-relative"><a href="" onclick="return confirm('Deseja realmente excluir este registro?')"class="btn btn-success btn-xs position-absolute top-50 translate-middle-y"><i class="far fa-check-circle"></i> Incluir</a></span>
+	  	<input class="col form-control fs-4" type="text" name="responsavel" required>
+	  	<span class="col-5 position-relative"><button class="btn btn-success btn-xs position-absolute top-50 translate-middle-y" type="submit"><i class="far fa-check-circle"></i> Incluir</button></span>
 	  </div>
 	  <legend class="mt-5"> Excluir responsável</legend>
 	  <div class="col-4"> 
 		  <table class="table table-striped fs-4">			  
-			  <tbody>
-		          {loop="$responsavel"}
+			  <tbody>  
+		          {loop="$categoria"}
 		          <tr  style="text-align: left">
 		            <td >{$value.responsavel}</td>
 		            <td style="text-align: right">
-		              <a href="/adicionar/laboratorio/{$value.idresponsavel}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+		              <a href="/adicionar/{$item}/{$value.idresponsavel}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
 		            </td>
 		          </tr>
 		          {/loop}

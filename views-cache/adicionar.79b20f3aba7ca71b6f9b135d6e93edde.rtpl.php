@@ -13,7 +13,8 @@
 				  </div>
 				  <div class="col-md-4">
 				    <label for="marca" class="form-label">Marca </label>
-				    <a href="/adicionar/marca" ><span data-bs-toggle="tooltip" title="Editar marca"><i class="fas fa-edit fs-2" ></i></span></a>
+				    <?php $item1="marca"; ?>
+				    <a href="/adicionar/<?php echo htmlspecialchars( $item1, ENT_COMPAT, 'UTF-8', FALSE ); ?>" ><span data-bs-toggle="tooltip" title="Editar marca"><i class="fas fa-edit fs-2" ></i></span></a>
 						
 				    <select class="form-select fs-4" id="marca" name="marca" required="">
 				    	<?php $counter1=-1;  if( isset($lists["0"]) && ( is_array($lists["0"]) || $lists["0"] instanceof Traversable ) && sizeof($lists["0"]) ) foreach( $lists["0"] as $key1 => $value1 ){ $counter1++; ?>
@@ -50,8 +51,9 @@
 				    <input type="date" class="form-control fs-4" id="compra" name="compra">
 				  </div>
 				  <div class="col-md-4">
+				  	<?php $item2="laboratorio"; ?>
 				    <label for="lab" class="form-label">Laboratório</label>
-				    <a href="/adicionar/laboratorio" ><span data-bs-toggle="tooltip" title="Editar laboratório"><i class="fas fa-edit fs-2" ></i></span></a>
+				    <a href="/adicionar/<?php echo htmlspecialchars( $item2, ENT_COMPAT, 'UTF-8', FALSE ); ?>" ><span data-bs-toggle="tooltip" title="Editar laboratório"><i class="fas fa-edit fs-2" ></i></span></a>
 				    <select class="form-select fs-4" id="lab" name="laboratorio">
 				    	<?php $counter1=-1;  if( isset($lists["2"]) && ( is_array($lists["2"]) || $lists["2"] instanceof Traversable ) && sizeof($lists["2"]) ) foreach( $lists["2"] as $key1 => $value1 ){ $counter1++; ?>
 				    	<option><?php echo htmlspecialchars( $value1["laboratorio"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
@@ -63,33 +65,9 @@
 				    <input type="text" class="form-control fs-4" id="loc" name="localizacao" required>
 				  </div>
 				  <div class="col-md-5">
+				  	<?php $item3="responsavel"; ?>
 				    <label for="resp" class="form-label">Responsável </label>
-				    <a href="/adicionar/responsavel" ><span data-bs-toggle="tooltip" title="Editar responsável"><i class="fas fa-edit fs-2" ></i></span></a>
-				    	<!-- modal -->
-						<div class="modal " id="respModal" tabindex="-1" aria-labelledby="respModalLabel" aria-hidden="true">
-						  <div class="modal-dialog">
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <h5 class="modal-title" id="respModalLabel">Novo responsável</h5>
-						        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						      </div>
-						      <div class="modal-body">
-						        
-						          <div class="mb-3">
-						            <label for="Rtext" class="col-form-label">Nome:</label>
-						            <div class="row">
-							            <div class="col-11 fs-3"><input type="text" class="form-control col-10 fs-3" id="Rtext"></div>
-							            <div class="col-1 position-relative"><a class="position-absolute top-50 start-50 translate-middle fs-3" href="" data-bs-toggle="modal" data-bs-target="#respModal"><i class="fas fa-plus-circle fs-1 my-auto" ></i></a></div>
-						            </div>
-						          </div>
-						      </div>
-						      <div class="modal-footer">
-						        <button type="button" class="btn btn-secondary fs-4" data-bs-dismiss="modal">Fechar</button>
-						      </div>
-						    </div>
-						  </div>
-						</div>
-						<!-- fim do modal -->
+				    <a href="/adicionar/<?php echo htmlspecialchars( $item3, ENT_COMPAT, 'UTF-8', FALSE ); ?>" ><span data-bs-toggle="tooltip" title="Editar responsável"><i class="fas fa-edit fs-2" ></i></span></a>
 				    <select class="form-select fs-4" id="resp" name="responsavel" required="">
 				    	<?php $counter1=-1;  if( isset($lists["3"]) && ( is_array($lists["3"]) || $lists["3"] instanceof Traversable ) && sizeof($lists["3"]) ) foreach( $lists["3"] as $key1 => $value1 ){ $counter1++; ?>
 				    	<option selected><?php echo htmlspecialchars( $value1["responsavel"], ENT_COMPAT, 'UTF-8', FALSE ); ?></option>
