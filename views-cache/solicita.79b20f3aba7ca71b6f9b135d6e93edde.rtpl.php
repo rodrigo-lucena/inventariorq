@@ -3,7 +3,7 @@
 						<h1><i class="far fa-bell" style="color: black"></i> Solicitações de acesso</h1>
 					</section>
 					<section class="content">
-						<div class="box-body no-padding">
+						<div class="box-body no-padding m-3" style="overflow: auto; height: 70vh">
 					              <table class="table table-striped fs-4">
 					                <thead>
 					                  <tr style="text-align: left">

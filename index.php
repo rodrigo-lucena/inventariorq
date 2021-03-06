@@ -17,34 +17,101 @@ $app->get('/', function() {
 });
 
 $app->post('/', function() {
+
 	User::login($_POST["login"],$_POST["password"]);
+
 	header("Location: /consulta");
 	exit;
 });
 
+
 $app->get('/cadastro', function() {	
+	$lists = Reagents::lists();	
 	$page = new Page(["header"=>false,"footer"=>false]);
-	$page->setTpl("cadastro");
+	$page->setTpl("cadastro", array("lists"=>$lists));
 });
 
-$app->post('/consulta', function() {
-	User::verifyLogin();	
-	$reagents = Reagents::search($_POST["Reagente"],$_POST["Responsavel"], $_POST["radioB"], $_POST["radioC"], $_POST["radioV"]);
+$app->post('/cadastro', function() {
+	// Ainda falta verificar se as duas senhas são iguais - ok
+	// Ainda falta colocar um sistema anti robô
+	// Ainda falta criptografar a senha antes de enviá-la para o banco de dados - ok
+	$usuario = new User();
+	$usuario->setData($_POST);
+	$validar = $usuario->searchLoginEmail();
+	if ($validar[0]["contador"]=="0") $usuario->save("u");
+	header("Location: /");	
+	exit;
+	// Inserir mensagem informando que os dados foram enviados com sucesso ou que já existe usuário com mesmo login ou email.
+	
+});
+
+
+// INÍCIO DO GERENCIAMENTO DA SESSÃO "CONSULTA"
+
+$app->get('/consulta/:idreagent/delete', function($idreagent) {
+	User::verifyLogin();
+	Reagents::deleteItem("reagente",$idreagent);
+
+	$reagents = Reagents::search($_SESSION["BUSCA"]);
 	$count = User::countSol()[0];
 	$info = array_merge($_SESSION[User::SESSION],$count);
 	unset($info['senha']);
 	$page = new Page(array("data"=>array("info"=>$info)));
-	$page->setTpl("consulta", array("reagents"=>$reagents));
+	$page->setTpl("consulta", array("reagents"=>$reagents, "busca"=>$_SESSION["BUSCA"]));
 });
 
-$app->get('/consulta', function() {
+$app->get('/consulta/:idreagent', function($idreagent) {
 	User::verifyLogin();
 	$count = User::countSol()[0];
 	$info = array_merge($_SESSION[User::SESSION],$count);
 	unset($info['senha']);
+	$lists = Reagents::lists();
+	$reag = new Reagents();
+	$reag->get((int)$idreagent);
+	$reagent = $reag->getValues();
+	$volume_massa = explode(" ", $reag->getvolume_massa());
+	$reagent = array_merge($reagent,array("volume_massa"=>$volume_massa[0],"unidade"=>$volume_massa[1]));
 	$page = new Page(array("data"=>array("info"=>$info)));
-	$page->setTpl("consulta");
+	$page->setTpl("editar-idreagente", array("reagent"=>$reagent, "lists"=>$lists));
 });
+
+
+$app->post('/consulta/:idreagent', function($idreagent) {
+	User::verifyLogin();
+	$reagent = new Reagents();
+	$reagent->setData($_POST);
+	$reagent->update($idreagent);
+
+	$reagents = Reagents::search($_SESSION["BUSCA"]);
+	$count = User::countSol()[0];
+	$info = array_merge($_SESSION[User::SESSION],$count);
+	unset($info['senha']);
+	$page = new Page(array("data"=>array("info"=>$info)));
+	$page->setTpl("consulta", array("reagents"=>$reagents, "busca"=>$_SESSION["BUSCA"]));
+});
+
+
+$app->post('/consulta', function() {
+	User::verifyLogin();
+	$_SESSION["BUSCA"] = array($_POST["Reagente"],$_POST["Responsavel"], $_POST["radioB"], $_POST["radioC"], $_POST["radioV"]);
+	$reagents = Reagents::search($_SESSION["BUSCA"]);
+	$count = User::countSol()[0];
+	$info = array_merge($_SESSION[User::SESSION],$count);
+	unset($info['senha']);
+	$page = new Page(array("data"=>array("info"=>$info)));
+	$page->setTpl("consulta", array("reagents"=>$reagents,"busca"=>$_SESSION["BUSCA"]));
+});
+
+$app->get('/consulta', function() {
+	User::verifyLogin();
+	$_SESSION["BUSCA"] = array("olá","", "c", ">= 1", "");
+	$count = User::countSol()[0];
+	$info = array_merge($_SESSION[User::SESSION],$count);
+	unset($info['senha']);
+	$page = new Page(array("data"=>array("info"=>$info)));
+	$page->setTpl("consulta", array("busca"=>$_SESSION["BUSCA"]));
+});
+// FINAL DO GERENCIAMENTO DA SESSÃO "CONSULTA"
 
 // INÍCIO DO GERENCIAMENTO DA SESSÃO "INCLUIR REAGENTES"
 $app->post('/adicionar/item', function() {
@@ -96,14 +163,18 @@ $app->post('/adicionar', function() {
 	User::verifyLogin();
 	$reagent = new Reagents();
 	$reagent->setData($_POST);
-	$reagent->save();
+	$reagent->save("r");	
 	header("Location: /adicionar");
 	exit;	
 });
 // FINAL DO GERENCIAMENTO DA SESSÃO "INCLUIR REAGENTES"
 
+
 $app->get('/usuarios/:idusuario/delete', function($idusuario) {
 	User::verifyLogin();
+	User::deleteItem("usuario",$idusuario);
+	header("Location: /usuarios");
+	exit;	
 });
 
 $app->get('/usuarios/:idusuario', function($idusuario) {
@@ -111,12 +182,27 @@ $app->get('/usuarios/:idusuario', function($idusuario) {
 	$count = User::countSol()[0];
 	$info = array_merge($_SESSION[User::SESSION],$count);
 	unset($info['senha']);
+	$lists = Reagents::lists();
+	$users = new User();
+	$users->get((int)$idusuario);
+	$user = $users->getValues();
 	$page = new Page(array("data"=>array("info"=>$info)));
-	$page->setTpl("usuario-update");
+	$page->setTpl("usuario-update", array("user"=>$user, "lists"=>$lists));
 });
 
 $app->post('/usuarios/:idusuario', function($idusuario) {
 	User::verifyLogin();
+	$user = new User();
+	$user->get((int)$idusuario);
+	if (!isset($_POST["tipo"])) {
+		$_POST["tipo"]=2;
+	}
+	$user->setData($_POST);
+	$user->update($idusuario);
+	var_dump($user->getValues());
+	header("Location: /usuarios");
+	exit;
+
 });
 
 $app->get('/usuarios', function() {

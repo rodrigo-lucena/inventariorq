@@ -1,63 +1,64 @@
 <div class="tab-pane" style="padding: 5px 5px 5px 5px">
 			    <section class="content-header" >
-					<h1><i class="far fa-plus-square" style="color: black"></i> Entrada de reagentes</h1>
+					<h1><i class="fas fa-tasks" style="color: black"></i> Editar reagente</h1>
 				</section>
-			    <form class="row g-3 fs-4" action="/adicionar" method="post" style="margin-top: 10px; padding: 10px 10px 10px 10px">
+			    <form class="row g-3 fs-4" action="/consulta/{$reagent.idreagente}" method="post" style="margin-top: 10px; padding: 10px 10px 10px 10px">
 				  <div class="col-md-5">
 				    <label for="nomeR" class="form-label">Nome</label>
-				    <input type="text" class="form-control fs-4" id="nomeR" name="nome" required>
+				    <input type="text" class="form-control fs-4" id="nomeR" name="nome" value="{$reagent.nome}" required>
 				  </div>
 				  <div class="col-md-3">
 				    <label for="formula" class="form-label">Fórmula</label>
-				    <input type="text" class="form-control fs-4" id="formula" name="formula" required>
+				    <input type="text" class="form-control fs-4" id="formula" name="formula" value="{$reagent.formula}" required>
 				  </div>
 				  <div class="col-md-4">
 				    <label for="marca" class="form-label">Marca </label>
 				    {$item1="marca"}
 				    <a href="/adicionar/{$item1}" ><span data-bs-toggle="tooltip" title="Editar marca"><i class="fas fa-edit fs-2" ></i></span></a>
 						
-				    <select class="form-select fs-4" id="marca" name="marca" required="">
-				    	<option selected disabled value="">Escolha...</option>
+				    <select class="form-select fs-4" id="marca" name="marca" required>
+				    	<option selected>{$reagent.marca}</option>
 				    	{loop="$lists[0]"}
 				    	<option>{$value.marca}</option>
 				    	{/loop}	
 				    </select>				    
 				  </div>
 				  <div class="col-md-3">
-				  	<input class="form-check-input" type="radio" name="unidade" value=" mL" id="volume" checked="">
+				  	<input class="form-check-input" type="radio" name="unidade" value=" mL" id="volume" 
+				  	{if="$reagent.unidade == 'mL'"}checked{/if}>
 				    <label for="volume" class="form-check-label">Volume(mL)</label>
-				    <input class="form-check-input" type="radio" name="unidade" value=" g" id="massa">
+				    <input class="form-check-input" type="radio" name="unidade" value=" g" id="massa"
+				    {if="$reagent.unidade == 'g'"}checked{/if}>
 					<label for="massa" class="form-label">Massa(g)</label>
-				    <input type="number" class="form-control fs-4" id="medida" name="volume_massa" required>
+				    <input type="text" class="form-control fs-4" id="medida" name="volume_massa" value="{$reagent.volume_massa}" required>
 				  </div>
 				  <div class="col-md-2">
 				    <label for="quantidade" class="form-label">Quantidade</label>
-				    <input type="number" class="form-control fs-4" id="quantidade" min="0" max="200" step="1" name="quantidade" required>
+				    <input type="number" class="form-control fs-4" id="quantidade" min="0" max="200" step="1" name="quantidade" value="{$reagent.quantidade}" required>
 				  </div>
 				  <div class="col-md-2">
 				    <label for="validade" class="form-label">Validade</label>
-				    <input type="date" class="form-control fs-4" id="validade" name="validade" required>
+				    <input type="date" class="form-control fs-4" id="validade" name="validade" value="{$reagent.validade}" required>
 				  </div>
 				  <div class="col-md-5">
 				    <label for="controle" class="form-label">Controle</label>
 				    <select class="form-select fs-4" id="controle" name="controle">
-				    	<option selected disabled value="">Escolha...</option>
+				    	<option selected>{$reagent.controle}</option>
 				    	{loop="$lists[1]"}
 				    	<option>{$value.controle}</option>
-				    	{/loop}
-				    		
+				    	{/loop} 		
 				    </select>
 				  </div>
 				  <div class="col-md-3">
 				    <label for="compra" class="form-label">Data de compra</label>
-				    <input type="date" class="form-control fs-4" id="compra" name="compra">
+				    <input type="date" class="form-control fs-4" id="compra" name="compra" value="{$reagent.compra}">
 				  </div>
 				  <div class="col-md-4">
 				  	{$item2="laboratorio"}
 				    <label for="lab" class="form-label">Laboratório</label>
 				    <a href="/adicionar/{$item2}" ><span data-bs-toggle="tooltip" title="Editar laboratório"><i class="fas fa-edit fs-2" ></i></span></a>
 				    <select class="form-select fs-4" id="lab" name="laboratorio">
-				    	<option selected disabled value="">Escolha...</option>
+				    	<option selected>{$reagent.laboratorio}</option>
 				    	{loop="$lists[2]"}
 				    	<option>{$value.laboratorio}</option>
 				    	{/loop}	
@@ -65,14 +66,14 @@
 				  </div>
 				  <div class="col-md-5">
 				    <label for="loc" class="form-label">Localização</label>
-				    <input type="text" class="form-control fs-4" id="loc" name="localizacao" required>
+				    <input type="text" class="form-control fs-4" id="loc" name="localizacao" value="{$reagent.localizacao}" required>
 				  </div>
 				  <div class="col-md-5">
 				  	{$item3="responsavel"}
 				    <label for="resp" class="form-label">Responsável </label>
 				    <a href="/adicionar/{$item3}" ><span data-bs-toggle="tooltip" title="Editar responsável"><i class="fas fa-edit fs-2" ></i></span></a>
 				    <select class="form-select fs-4" id="resp" name="responsavel" required="">
-				    	<option selected disabled value="">Escolha...</option>
+				    	<option selected>{$reagent.responsavel}</option>
 				    	{loop="$lists[3]"}
 				    	<option>{$value.responsavel}</option>
 				    	{/loop}	
@@ -81,8 +82,6 @@
 				  <div class="col-12">
 				    <button class="btn btn-primary fs-4" type="submit"><i class="far fa-save"></i> Salvar</button>
 				  </div>
-				  <div class="col-12">
-				    <button type="button" class="btn btn-dark fs-4" data-bs-toggle="modal" data-bs-target="#Modal" data-bs-whatever="@mdo"><i class="fas fa-file-import"></i> Importar lista...</button>
-				  </div>
+				  
 				</form>
 		    </div>

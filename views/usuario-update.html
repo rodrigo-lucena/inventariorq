@@ -6,40 +6,41 @@
 	
 	<div id="form">
 		
-		<form class="row g-3 fs-3 p-4">
+		<form class="row g-3 fs-3 p-4" action="/usuarios/{$user.idusuario}" method="post">
 			<legend class="fs-3"><i class="far fa-user"></i> Identificação do usuário</legend>
 		  
 		    <label for="pnome" class="form-label">Nome</label>
-		    <input type="text" class="form-control fs-3 m-0" id="pnome" required>
-		  
-		  
+		    <input type="text" class="form-control fs-3 m-0" id="pnome" name="nome" value="{$user.nome}" required>
+		  	  
 		    <label for="sobrenome" class="form-label">Sobrenome</label>
-		    <input type="text" class="form-control fs-3 m-0" id="sobrenome" required>
+		    <input type="text" class="form-control fs-3 m-0" id="sobrenome" name="sobrenome" value="{$user.sobrenome}" required>
 		  
 		  
 		    <label for="email" class="form-label">Email</label>
-		    <input type="email" class="form-control fs-3 m-0" id="email" required>
+		    <input type="email" class="form-control fs-3 m-0" id="email" name="email" value="{$user.email}" required>
+		    
 		    <div>
-		    <input class="form-check-input" type="checkbox" value="" id="admCheck">
+		    <input class="form-check-input" type="checkbox" name="tipo" value="1" id="admCheck" {if="$user.tipo != 2"}checked{/if}>
 		    <label class="form-check-label fs-4" for="admCheck">Acesso de administrador</label>
 			</div>
-
-		  
+			
 		  <legend class="fs-3"><i class="fas fa-link"></i> Vínculo</legend>
 		  <div class="col-md-5">
 		    <label for="presponsavel" class="form-label">Professor Responsável</label>
-		    <select class="form-select fs-3" id="presponsavel" required>
-		      <option selected disabled value="">Escolha...</option>
-		      <option>João Vicente</option>
-		      <option>Pedro Silva</option>
+		    <select class="form-select fs-3" id="presponsavel" name="responsavel" required>
+		      <option selected>{$user.responsavel}</option>
+	    	  {loop="$lists[3]"}
+	    	  <option>{$value.responsavel}</option>
+	    	  {/loop}	
 		    </select>
 		  </div>
 		  <div class="col-md-5">
 		    <label for="lab" class="form-label">Laboratório</label>
-		    <select class="form-select fs-3" id="lab" required>
-		      <option selected disabled value="">Escolha...</option>
-		      <option>Ciências da Terra</option>
-		      <option>Química</option>
+		    <select class="form-select fs-3" id="lab" name="laboratorio" required>
+		      <option selected>{$user.laboratorio}</option>
+	    	  {loop="$lists[2]"}
+	    	  <option>{$value.laboratorio}</option>
+	    	  {/loop}	
 		    </select>
 		  </div>
 		  <div class="col-12 fs-3 mt-5">

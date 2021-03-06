@@ -4,62 +4,50 @@ namespace Invent\Model;
 use \Invent\DB\Sql; 
 
 
-class Reagents extends User{
-	
-	public static function search($reagente,$responsavel,$base,$controle,$validade){
-		$sql = new Sql();
-		
-		$command = "SELECT r.idreagente, r.nome, r.formula, m.marca, r.volume_massa, r.quantidade, r.validade, l.laboratorio, r.localizacao, rp.responsavel FROM reagentes AS r JOIN marca_r AS m JOIN controle_r AS c JOIN laboratorio_r AS l JOIN responsavel_r AS rp ON r.idmarca = m.idmarca AND r.idcontrole = c.idcontrole AND r.idlaboratorio = l.idlaboratorio 	AND r.idresponsavel = rp.idresponsavel WHERE r.nome LIKE :REAGENTE AND rp.responsavel LIKE :RESPONSAVEL AND l.laboratorio LIKE :BASE AND c.idcontrole ".$controle.$validade;
 
-		return $sql->select($command, array(":REAGENTE"=>"%".$reagente."%", ":RESPONSAVEL"=>"%".$responsavel."%", ":BASE"=>"%".$base."%")
+
+class Reagents extends Itens{ 
+	const CONSULTA = "SELECT * FROM reagente r JOIN marca_r m USING(idmarca) JOIN controle_r c USING(idcontrole) JOIN laboratorio_r l USING(idlaboratorio) JOIN responsavel_r rp USING(idresponsavel) ";
+	
+
+
+
+	//Busca realizada na seção "Consulta"
+//	public static function search($reagente,$responsavel,$base,$controle,$validade){
+	public static function search($tipo){
+		$sql = new Sql();
+		$command = Reagents::CONSULTA."WHERE r.nome LIKE :REAGENTE AND rp.responsavel LIKE :RESPONSAVEL AND l.laboratorio LIKE :BASE AND c.idcontrole ".$tipo[3].$tipo[4]." ORDER by r.nome";
+
+		return $sql->select($command, array(":REAGENTE"=>"%".$tipo[0]."%", ":RESPONSAVEL"=>"%".$tipo[1]."%", ":BASE"=>"%".$tipo[2]."%")
 			);
 		
-	}
-	public static function lists(){
-		$sql = new Sql();
-		$list=array("marca"=>"marca_r", "controle"=>"controle_r", "laboratorio"=>"laboratorio_r", "responsavel"=>"responsavel_r");
-
-		$lists=array();
-
-		foreach ($list as $key => $value) {
-			$command = "SELECT ".$key." FROM ".$value;
-			array_push($lists, $sql->select($command));
-		}
-		return $lists;
-
-	}
-	public function save(){
-		$sql = new Sql();
-
-		$sql->select("CALL reagent_save(:nome, :formula, :marca, :volume_massa, :quantidade, :validade, :controle, :compra, :laboratorio, :localizacao, :responsavel)", array(
-			":nome"=>$this->getnome(),
-			":formula"=>$this->getformula(),
-			":marca"=>$this->getmarca(),
-			":volume_massa"=>$this->getvolume_massa().$this->getunidade(),
-			":quantidade"=>$this->getquantidade(),
-			":validade"=>$this->getvalidade(),
-			":controle"=>$this->getcontrole(),
-			":compra"=>$this->getcompra(),
-			":laboratorio"=>$this->getlaboratorio(),
-			":localizacao"=>$this->getlocalizacao(),
-			":responsavel"=>$this->getresponsavel()
-		));
-	}
-	public static function saveItem($tabela,$atributo,$value){
-		$sql = new Sql();
-		$sql->select("INSERT INTO ".$tabela." (".$atributo.") VALUES (:VALUE)", array(":VALUE"=>$value));
-
-	} 
-
-	public static function itens($categoria){
-		$sql = new Sql();
-		return $sql->select("SELECT * FROM ".$categoria);
 		
 	}
-	public static function deleteItem($categoria, $iditem){
+	
+	public function get($idreagent){
 		$sql = new Sql();
-		$sql->select("DELETE FROM ".$categoria."_r WHERE id".$categoria." = :IDITEM", array(":IDITEM"=>$iditem));
-
+		$command=Reagents::CONSULTA."WHERE idreagente = :ID";
+		$result = $sql->select($command, array(":ID"=>$idreagent));
+		$this->setData($result[0]);
 	}
+
+	public function update($idreagent){
+		$sql = new Sql();
+		$sql->select("CALL reagent_update(:idreagente, :nome, :formula, :marca, :volume_massa, :quantidade, :validade, :controle, :compra, :laboratorio, :localizacao, :responsavel)", array(
+					":idreagente"=>$idreagent,
+					":nome"=>$this->getnome(),
+					":formula"=>$this->getformula(),
+					":marca"=>$this->getmarca(),
+					":volume_massa"=>$this->getvolume_massa().$this->getunidade(),
+					":quantidade"=>$this->getquantidade(),
+					":validade"=>$this->getvalidade(),
+					":controle"=>$this->getcontrole(),
+					":compra"=>$this->getcompra(),
+					":laboratorio"=>$this->getlaboratorio(),
+					":localizacao"=>$this->getlocalizacao(),
+					":responsavel"=>$this->getresponsavel()
+				)); 
+	}
+
 }
 ?>

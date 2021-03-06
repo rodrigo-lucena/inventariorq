@@ -3,7 +3,7 @@
 					<h1><i class="fas fa-users" style="color: black"></i> Lista de Usuários</h1>
 				</section>
 				<section class="content">
-					<div class="box-body no-padding">
+					<div class="box-body no-padding m-3" style="overflow: auto; height: 70vh">
 		              <table class="table table-striped fs-4">
 		                <thead>
 		                  <tr style="text-align: left">
@@ -24,10 +24,12 @@
 		                    <td>{$value.email}</td>
 		                    <td>{$value.login}</td>
 		                    <td>{$value.responsavel}</td>
-		                    <td>{if="$value.tipo == 0"}Administrador{else}Usuário{/if}</td>
+		                    <td>{if="$value.tipo != 2"}Administrador{else}Usuário{/if}</td>
 		                    <td style="text-align: right">
+		                    {if="$value.tipo == 2 or $info.tipo == 0"}
 		                      <a href="/usuarios/{$value.idusuario}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
 		                      <a href="/usuarios/{$value.idusuario}/delete" onclick="return confirm('Deseja realmente excluir este usuário?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+		                    {/if}
 		                    </td>
 		                  </tr>
 		                  {/loop}

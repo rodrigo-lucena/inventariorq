@@ -3,7 +3,7 @@
 					<h1><i class="fas fa-users" style="color: black"></i> Lista de Usuários</h1>
 				</section>
 				<section class="content">
-					<div class="box-body no-padding">
+					<div class="box-body no-padding m-3" style="overflow: auto; height: 70vh">
 		              <table class="table table-striped fs-4">
 		                <thead>
 		                  <tr style="text-align: left">
@@ -24,10 +24,12 @@
 		                    <td><?php echo htmlspecialchars( $value1["email"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
 		                    <td><?php echo htmlspecialchars( $value1["login"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
 		                    <td><?php echo htmlspecialchars( $value1["responsavel"], ENT_COMPAT, 'UTF-8', FALSE ); ?></td>
-		                    <td><?php if( $value1["tipo"] == 0 ){ ?>Administrador<?php }else{ ?>Usuário<?php } ?></td>
+		                    <td><?php if( $value1["tipo"] != 2 ){ ?>Administrador<?php }else{ ?>Usuário<?php } ?></td>
 		                    <td style="text-align: right">
+		                    <?php if( $value1["tipo"] == 2 or $info["tipo"] == 0 ){ ?>
 		                      <a href="/usuarios/<?php echo htmlspecialchars( $value1["idusuario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
 		                      <a href="/usuarios/<?php echo htmlspecialchars( $value1["idusuario"], ENT_COMPAT, 'UTF-8', FALSE ); ?>/delete" onclick="return confirm('Deseja realmente excluir este usuário?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+		                    <?php } ?>
 		                    </td>
 		                  </tr>
 		                  <?php } ?>

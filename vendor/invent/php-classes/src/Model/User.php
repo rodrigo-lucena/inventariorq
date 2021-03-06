@@ -2,11 +2,14 @@
 
 namespace Invent\Model;
 use \Invent\DB\Sql; 
-use \Invent\Model;
 
 
-class User extends Model{
+
+class User extends Itens{
 	const SESSION = "User";
+	const CONSULTAU = "SELECT * FROM usuario u JOIN laboratorio_r l USING(idlaboratorio) JOIN responsavel_r rp USING(idresponsavel) ";
+	const SECRET_IV = "senha           ";
+	const SECRET = "12catalogo12    ";
 	
 	public static function login($login, $password)
 	{
@@ -22,9 +25,24 @@ class User extends Model{
 			
 		}
 		$data = $results[0];
+
+
+
+		$pass = openssl_decrypt($data['senha'], 'AES-128-CBC', User::SECRET, 0, User::SECRET_IV);
+		//Entender porque a instrução acima gera string com aspas duplicadas
+
+		/*
+		var_dump($data['senha']);
+		echo "<br>";
+		var_dump($pass);
+		echo "<br>";
+		var_dump('"'.$password.'"');
+
+		exit;
+		*/
 		
 
-		if ($password===$data["senha"]) {
+		if ('"'.$password.'"'===$pass) {
 			$user = new User();
 			$user->setData($data);
 
@@ -48,15 +66,23 @@ class User extends Model{
 */
 
 	}
-	public static function verifyLogin($tipo = 0){
+	public static function verifyLogin(){
 		if (!isset($_SESSION[User::SESSION]) || 
 			!$_SESSION[User::SESSION] || 
 			!(int)$_SESSION[User::SESSION]["idusuario"]>0 ||
-			(int)$_SESSION[User::SESSION]["tipo"] !== $tipo) {
+			(int)$_SESSION[User::SESSION]["situacao"]==0) {
 			header("Location: /");
 			exit;
 		}
 	}
+
+	
+	public function searchLoginEmail(){
+		$sql = new Sql();
+		return $sql->select("SELECT count(*) AS contador FROM usuario WHERE login= :LOGIN OR email= :EMAIL", array(":LOGIN"=>$this->getlogin(),":EMAIL"=>$this->getemail()
+	));
+	}
+
 	public static function logout(){
 		$_SESSION[User::SESSION] = NULL;
 
@@ -69,10 +95,36 @@ class User extends Model{
 			ORDER BY u.nome",array(":SIT"=>$sit));
 
 	}
+
+	public function get($iduser){
+		$sql = new Sql();
+		$command=User::CONSULTAU."WHERE idusuario = :ID";
+		$result = $sql->select($command, array(":ID"=>$iduser));
+		$this->setData($result[0]);
+	}
+
+
 	public static function countSol(){
 		$sql = new Sql();
 		return $sql->select("SELECT count(*) AS contador FROM usuario WHERE situacao = 0");
 
+	}
+
+	public function update($iduser){
+		$sql = new Sql();
+		$sql->select("CALL user_update(:idusuario, :nome, :sobrenome, :email, :login, :senha, :laboratorio, :responsavel, :tipo, :situacao)", array(
+					":idusuario"=>$iduser,
+					":nome"=>$this->getnome(),
+					":sobrenome"=>$this->getsobrenome(),
+					":email"=>$this->getemail(),
+					":login"=>$this->getlogin(),
+					":senha"=>$this->getsenha(),
+					":laboratorio"=>$this->getlaboratorio(),
+					":responsavel"=>$this->getresponsavel(),
+					":tipo"=>$this->gettipo(),
+					":situacao"=>$this->getsituacao()
+
+				)); 
 	}
 }
 
