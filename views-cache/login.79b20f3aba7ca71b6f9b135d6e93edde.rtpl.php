@@ -25,10 +25,11 @@
 			  	<input type="password" class="form-control" placeholder="Password" name="password">
 			  	<span class="glyphicon glyphicon-lock"></span>
 			</div>
-			<div class="col-12 fs-3 mt-5">
+			<div class="col-12 fs-3">
 				<button class="btn btn-primary fs-4" type="submit" style="background-color: rgba(1,153,185,1)">Entrar</button>
-				<a class="btn btn-warning fs-4" href="/cadastro" style="background-color: rgb(251,158,13); color: white">Novo usuário</a>	
+				<a class="btn btn-warning fs-4 mb-3" href="/cadastro" style="background-color: rgb(251,158,13); color: white">Novo usuário</a>	
 			</div>
+			<a href="/esqueceu" >Esqueceu a senha?</a>
 		</form>
 		<p id="info">Informações e dúvidas: rodrigo.lacite@gmail.com</p>
 

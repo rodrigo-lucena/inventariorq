@@ -45,6 +45,29 @@ $app->post('/cadastro', function() {
 	
 });
 
+$app->get('/esqueceu', function() {
+	$page = new Page(["header"=>false,"footer"=>false]);
+	$page->setTpl("esqueceu");
+});
+
+$app->post('/esqueceu', function() {
+	
+	$user = User::getForgot($_POST["email"]);
+	header("Location: /esqueceu/enviado");
+	exit;
+});
+
+$app->get('/esqueceu/enviado', function() {
+	$page = new Page(["header"=>false,"footer"=>false]);
+	$page->setTpl("esqueceu_enviado"); // montar página esqueceu_enviado.html
+	
+});
+
+$app->get('/esqueceu/email', function() {
+	$page = new Page(["header"=>false,"footer"=>false]);
+	$page->setTpl("esqueceu_email"); // montar página esqueceu_enviado.html
+	
+});
 
 // INÍCIO DO GERENCIAMENTO DA SESSÃO "CONSULTA"
 

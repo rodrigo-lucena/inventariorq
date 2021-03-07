@@ -2,6 +2,7 @@
 
 namespace Invent\Model;
 use \Invent\DB\Sql; 
+use \Invent\Mailer; 
 
 
 
@@ -30,16 +31,6 @@ class User extends Itens{
 
 		$pass = openssl_decrypt($data['senha'], 'AES-128-CBC', User::SECRET, 0, User::SECRET_IV);
 		//Entender porque a instrução acima gera string com aspas duplicadas
-
-		/*
-		var_dump($data['senha']);
-		echo "<br>";
-		var_dump($pass);
-		echo "<br>";
-		var_dump('"'.$password.'"');
-
-		exit;
-		*/
 		
 
 		if ('"'.$password.'"'===$pass) {
@@ -125,6 +116,42 @@ class User extends Itens{
 					":situacao"=>$this->getsituacao()
 
 				)); 
+	}
+	public static function getForgot($email){
+		$sql = new Sql();
+		$command=User::CONSULTAU."WHERE email = :EMAIL";
+		$resultUser = $sql->select($command, array(":EMAIL"=>$email));
+
+		if (count($resultUser)===0) {
+			throw new \Exception("Não foi possível recuperar a senha");
+			
+		} else{
+			$data = $resultUser[0];
+			$resultRecup = $sql->select("CALL recup_senha(:idusuario, :ip)", array(":idusuario"=>$data["idusuario"], ":ip"=>$_SERVER["REMOTE_ADDR"]));
+			//var_dump($resultRecup);
+			//exit;
+		}
+		if (count($resultRecup)===0) {
+			throw new \Exception("Não foi possível recuperar a senha");
+		}else { // Recuperando os dados da tabela recup_senha, encriptografando seu idrecup_senha e enviando para o email do usuário:
+			$dataRecovery = $resultRecup[0];
+			$code =openssl_encrypt(json_encode($dataRecovery["idrecup_senha"]), 'AES-128-CBC', User::SECRET, 0, User::SECRET_IV);
+			$link = "http://www.inventariorq.com.br/esqueceu/reset?code=$code";
+			$mailer = new Mailer($data["email"],$data["nome"], "Redefinir senha do InventárioRQ","esqueceu_email", array(
+				"nome"=>$data["nome"],
+				"link"=>$link
+			));
+
+			$mailer->send();
+			return $data;
+
+
+		}
+
+
+
+
+
 	}
 }
 

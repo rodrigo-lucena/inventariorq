@@ -6,11 +6,20 @@
     'aliases' => 
     array (
     ),
-    'reference' => '12c33f016b8ffd90430ce04580df40c258bbda69',
+    'reference' => 'a6b9bb3be917ae7a6cd93e64aa4d26851dad6cab',
     'name' => 'rodrigo-lucena/inventariorq',
   ),
   'versions' => 
   array (
+    'phpmailer/phpmailer' => 
+    array (
+      'pretty_version' => 'v6.3.0',
+      'version' => '6.3.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '4a08cf4cdd2c38d12ee2b9fa69e5d235f37a6dcb',
+    ),
     'rain/raintpl' => 
     array (
       'pretty_version' => '3.0.0',
@@ -27,7 +36,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '12c33f016b8ffd90430ce04580df40c258bbda69',
+      'reference' => 'a6b9bb3be917ae7a6cd93e64aa4d26851dad6cab',
     ),
     'slim/slim' => 
     array (
