@@ -1,1 +1,0 @@
-Essa versão é SEM os stored procedures do banco de dados. Ele foi feito exclusivamente para o 000webhost, pois esse servidor, no modo grátis, não aceita um banco de dados com operações mais elaboradas. 
