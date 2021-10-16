@@ -1,0 +1,176 @@
+	
+				<div class="content-wrapper" id="consulta" style="padding: 5px 2px 5px 5px">
+				
+					<section class="content-header">
+					  <h1><i class="fas fa-clipboard-list" style="color: black"></i> 
+					    Lista de Reagentes
+					  </h1>
+
+					</section>
+					<!-- início de busca -->
+
+					<section class="content">
+						<form action="/consulta" method="post" id="form1">			            	
+			            	<div class="row" style="padding: 3px 3px 0px 3px">
+						  		<div class="mb-3 fs-4 col-3" >
+						    		<label for="Reag" class="form-label">Reagente:</label>
+									<input type="text" class="form-control fs-5" id="Reag" placeholder="Nome ou parte do nome do reagente" name="reagente">
+									<label for="Resp" class="form-label mt-4">Responsável:</label>
+									<input type="text" class="form-control fs-5" id="Resp" placeholder="Nome ou parte do nome do responsável" name="responsavel">
+						  		</div>
+						  		<div class="mb-3 fs-4 col-3">
+						    		<label for="form-check-input" class="form-label">Base:</label>								  	
+							  		<div>
+								    	<input class="form-check-input" type="radio" name="laboratorio" id="CheckLacite" value="{$info.laboratorio}" 
+								    	{if="$busca['laboratorio']!=''"}checked{/if} >
+								    	<label class="m-0 form-check-label border-0" for="CheckLacite">{$info.laboratorio}</label>
+									</div>
+									<div>
+								    	<input class="form-check-input" type="radio" name="laboratorio" id="CheckToda" value=""
+								    	{if="$busca['laboratorio']==''"}checked{/if}>
+								    	<label class="form-check-label" for="CheckToda">Toda</label>
+									</div>									
+									<div class="mt-3">
+										<label for="controle" class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="PC = Polícia Civil; PF = Polícia Federal; EB = Exército Brasileiro">Controle: (?)</label>
+									</div>
+									<div>
+										<select class="form-select fs-4 col-2" id="controle" name="controle">
+								    	<option selected value="">Todos</option>
+								    	{loop="$controle"}
+								    	<option>{$value.controle}</option>
+								    	{/loop}	
+										</select>				    
+									</div>
+								</div>
+								<div class="mb-3 fs-4 col-2">
+									<label for="form-check-input" class="form-label">Validade:</label>
+									<div>
+								    	<input class="form-check-input" type="radio" name="validade" id="CheckInd" value="" {if="$busca['validade']==''"}checked{/if}>
+								    	<label class="form-check-label" for="CheckInd" >Indiferente</label>
+									</div>
+									<div>
+								    	<input class="form-check-input" type="radio" name="validade" id="CheckVenc" value=" AND r.validade < curdate()"
+								    	{if="$busca['validade']==' AND r.validade < curdate()'"}checked{/if}>
+								    	<label class="form-check-label" for="CheckVenc">Vencidos</label>
+									</div>
+									<div>
+								    	<input class="form-check-input" type="radio" name="validade" id="CheckVal" value=" AND r.validade > curdate()"
+								    	{if="$busca['validade']==' AND r.validade > curdate()'"}checked{/if}
+								    	>
+								    	<label class="form-check-label" for="CheckVal">Válidos</label>
+									</div>
+								</div>
+								<div class="mb-3 fs-4 col-2">
+									<label for="Reag" class="form-label">Adicionar na busca:</label>		   												  		
+								  	<div>
+								  		<input type="checkbox" name="cformula" value="1" {if="$busca['cformula']=='1'"} checked {/if}>
+										<label class="form-label">Fórmula</label>	
+		   							</div>
+		   							<div>
+		   								<input type="checkbox" name="ccas" value="1" {if="$busca['ccas']=='1'"} checked {/if}>
+										<label class="form-label">CAS</label>		
+		   							</div>						  
+								  	<div>
+								  		<input type="checkbox" name="ccontrole" value='1' {if="$busca['ccontrole']=='1'"} checked {/if}>
+										<label class="form-label" data-bs-toggle="tooltip" data-bs-placement="top" title="PC = Polícia Civil; PF = Polícia Federal; EB = Exército Brasileiro">Controle (?)</label>
+		   							</div>
+		   						</div>
+		   						<div class="mb-3 fs-4 col-2">
+		   							<div>
+		   								<input type="checkbox" name="cregistro" value='1' {if="$busca['cregistro']=='1'"} checked {/if}>
+										<label class="form-label">Registro</label>	
+	   								</div>
+						  
+								  	<div>
+								  		<input type="checkbox" name="clocalizacao" value='1' {if="$busca['clocalizacao']=='1'"} checked {/if}>
+										<label class="form-label">Localização</label>			   							
+		   							</div>
+								  	<div>
+								  		<input type="checkbox" name="cresponsavel" value='1' {if="$busca['cresponsavel']=='1'"} checked {/if}>
+										<label class="form-label">Responsável</label>	
+		   							</div>
+		   							<div>
+		   								<input type="checkbox" name="cobservacoes" value='1' {if="$busca['cobservacoes']=='1'"} checked {/if}>
+										<label class="form-label">Observações</label>	
+		   							</div>
+		   						</div>
+								
+						  		</div>
+							</div>
+						  	<div style="padding: 5px 2px 5px 18px">
+						  		<button type="submit" class="btn btn-primary fs-4" name="Buscar"><i class="fas fa-search" ></i> Buscar</button>
+						  	</div>
+						</form>
+
+						<!-- fim de busca -->
+								
+					    <div class="box-body px-1 m-3" style="overflow: auto; height: 50vh">
+					        <form action="/consulta" method="post" id="form3"> 			
+					            <table class="table table-striped fs-4" >
+					                <thead>					                	
+					                  	<tr style="text-align: left">
+						                  	<th ></th>					                  	
+						                    <th >Reagente</th>						             		
+						             		{if="$busca['cformula']=='1'"}<th >Fórmula</th>{/if}
+						             		{if="$busca['ccas']=='1'"}<th >CAS</th>{/if}
+						                    {if="$busca['ccontrole']=='1'"}<th >Controle</th>{/if}
+						                    <th >Marca</th>
+						                    <th >Vol/Massa</th>
+						                    <th >Qtd</th>
+						                    {if="$busca['cregistro']=='1'"}<th >Registro</th>{/if}
+						                    <th  >Validade</th>					                    
+						                    <th >Laboratório</th>
+						                    {if="$busca['clocalizacao']=='1'"}<th >Localização</th>{/if}
+						                    {if="$busca['cresponsavel']=='1'"}<th >Responsável</th>{/if}
+						                    {if="$busca['cobservacoes']=='1'"}<th >Observações</th>{/if}
+						                    <th >&nbsp;</th>
+					                  	</tr>
+					                </thead>					                
+					                <tbody >					                	 
+					                  	{loop="$reagentes"}
+					                  	<tr style="text-align: left" >
+					                  		<td >
+					                  			{if="$value.laboratorio == $info.laboratorio && $info.tipo != '2' or $info.tipo == '0'"}
+					                  			<input type="checkbox" name="{$value.idreagente}">
+					                  			{/if}
+					                  		</td>
+						                    <td >{$value.nome} {$value.grau}</td>
+						                  	{if="$busca['cformula']=='1'"}<td >{$value.formula}</td>{/if}
+						                  	{if="$busca['ccontrole']=='1'"}<td>{$value.controle}</td>{/if}						                    
+						                  	{if="$busca['ccas']=='1'"}<td>{$value.cas}</td/>{/if}
+						                    <td>{$value.marca}</td>
+						                    <td>{$value.volume_massa} {$value.unidade}</td>
+						                    <td>{$value.quantidade}</td>
+						                    {if="$busca['cregistro']=='1'"}<td>{$value.registro}</td>{/if}	   
+						                    <td  {if="$value.validade < $data"} style= "color: rgba(255,0,0,1)"{/if}
+						                    >{$value.validade}</td>				                    
+						                    <td>{$value.laboratorio}</td/>
+						                    {if="$busca['clocalizacao']=='1'"}<td>{$value.localizacao}</td/>{/if}
+						                    {if="$busca['cresponsavel']=='1'"}<td>{$value.responsavel}</td>{/if}
+						                    {if="$busca['cobservacoes']=='1'"}<td>{$value.observacoes}</td>{/if}
+						                    <td style="text-align: right">
+						                    {if="$value.laboratorio == $info.laboratorio && $info.tipo != '2' or $info.tipo == '0'"}
+						                      <a href="/consulta/{$value.idreagente}" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Editar</a>
+						                      <a href="/consulta/{$value.idreagente}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+						                      {/if}
+						                    </td>
+					                  	</tr>
+					                	{/loop}  
+					                </tbody>					                
+					            </table>
+					            {if="$info.tipo != '2'"}					              
+					            <div class="content-wrapper" id="consulta" style="padding: 5px 2px 5px 5px">
+					            	<button type="submit" class="btn btn-danger fs-4" name="Excluir"><i class="fa fa-trash"></i>Excluir seleção</button>
+					          	</div>
+					          	{/if}
+					    	</form>
+					        <div class="content-wrapper" id="consulta" style="padding: 5px 2px 5px 5px">
+					            <form action="/consulta" method="post" id="form2">
+					            	<button type="submit" class="btn btn-dark fs-4" name="Exportar"><i class="fas fa-file-export"></i> Exportar resultado</button>
+					          	</form>
+					        </div>
+					    </div>					        
+
+					</section>					
+				</div>	
+			<!-- fim de Consulta-->

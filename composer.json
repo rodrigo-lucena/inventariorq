@@ -1,0 +1,24 @@
+{
+	"name": "rodrigo-lucena/inventariorq", 
+	"description": "Inventário de Reagentes Químicos", 
+	"type": "project",
+	"authors": [
+		{
+			"name": "Rodrigo Lucena",
+			"email": "rodrigo.lucena09@gmail.com"
+		}
+	],
+	
+	"require": {
+		"slim/slim":"2.0",
+		"rain/raintpl":"3.0.0",
+		"phpmailer/phpmailer": "^6.2"
+	},
+	"autoload": {
+		"psr-4": {
+			"Invent\\": "vendor\\invent\\php-classes\\src"
+		}
+		}
+
+	}
+

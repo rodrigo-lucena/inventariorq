@@ -1,0 +1,40 @@
+<div class="tab-pane" style="padding: 5px 5px 5px 5px">
+	{if="$info.tipo != '2'"}
+    <section class="content-header" >
+		<h1><i class="far fa-bell" style="color: black"></i> Solicitações de acesso</h1>
+	</section>
+	<section class="content">
+		<div class="box-body no-padding m-3" style="overflow: auto; height: 70vh">
+          	<table class="table table-striped fs-4">
+            	<thead>
+              		<tr style="text-align: left">
+                		<th >Nome</th>
+		                <th >Sobrenome</th>
+		                <th >Email</th>
+		                <th >Laboratorio</th>
+		                <th >Vínculo</th>
+		                <th style="width: 40px">Conta</th>
+		                <th >&nbsp;</th>
+              		</tr>
+            	</thead>
+            	<tbody>
+            		{loop="$usuarios"}
+              		<tr style="text-align: left">
+		                <td >{$value.nome}</td>
+		                <td>{$value.sobrenome}</td>
+		                <td>{$value.email}</td>
+		                <td>{$value.laboratorio}</td>
+		                <td>{$value.responsavel}</td>
+		                <td>{if="$value.tipo == 0"}Administrador{else}Usuário{/if}</td>
+		                <td style="text-align: right">
+                  		<a href="/solicita/{$value.idusuario}/aceito" class="btn btn-primary btn-xs"><i class="fa fa-edit"></i> Aceitar</a>
+                  		<a href="/solicita/{$value.idusuario}/delete" onclick="return confirm('Deseja realmente excluir este usuário?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+                		</td>
+              		</tr>
+              		{/loop}  
+            	</tbody>
+          	</table>
+		</div>
+	</session>
+	{/if}				        
+</div>

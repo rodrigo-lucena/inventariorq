@@ -1,0 +1,130 @@
+<div class="tab-pane" style="padding: 5px 5px 5px 5px">
+	<section class="content-header" >
+		<h1><i class="fas fa-tasks" style="color: black"></i> Editar reagente</h1>
+	</section>
+	<form class="row g-3 fs-4" action="/consulta/{$reagente.idreagente}" method="post" style="margin-top: 10px; padding: 10px 10px 10px 10px">
+	
+	
+	<div class="col-md-4">
+			<label for="nome" class="form-label">Nome</label>
+			{$item0="nome"}
+			<a href="/adicionar/{$item0}" ><span data-bs-toggle="tooltip" title="Editar nome"><i class="fas fa-edit fs-2" ></i></span></a>		
+			<select class="form-select fs-4" id="nome" name="nome" required="">
+			    <option selected>{$reagente.nome}</option>
+			    {loop="$lista[0]"}
+			    <option>{$value.nome}</option>
+			    {/loop}	
+			</select>				    
+	</div>
+	
+	<div class="col-md-2">
+			<label for="grau" class="form-label">Grau</label>
+			{$item5="grau"}
+			<a href="/adicionar/{$item5}" ><span data-bs-toggle="tooltip" title="Editar grau"><i class="fas fa-edit fs-2" ></i></span></a>		
+			<select class="form-select fs-4" id="grau" name="grau" required="">
+			    <option selected >{$reagente.grau}</option>
+			    {loop="$lista[6]"}
+			    <option>{$value.grau}</option>
+			    {/loop}	
+			</select>				    
+	</div>
+
+
+
+	<div class="col-md-2">
+		<label for="marca" class="form-label">Marca </label>
+		{$item1="marca"}
+		<a href="/adicionar/{$item1}" ><span data-bs-toggle="tooltip" title="Editar marca"><i class="fas fa-edit fs-2" ></i></span></a>				
+		<select class="form-select fs-4" id="marca" name="marca" required>
+			<option selected>{$reagente.marca}</option>
+			{loop="$lista[1]"}
+			<option>{$value.marca}</option>
+			{/loop}	
+		</select>				    
+	</div>
+	
+	<div class="col-md-2">
+			<label for="massa" class="form-label">Volume/Massa</label>
+			<input type="number" class="form-control fs-4" id="medida" name="volume_massa" value="{$reagente.volume_massa}" step ="25" required>
+		</div>
+
+
+		<div class="col-md-2">
+			<label for="marca" class="form-label">Unidade</label>		
+			<select class="form-select fs-4" id="unidade" name="unidade" required="">
+			    <option selected>{$reagente.unidade}</option>
+			    {loop="$lista[5]"}
+			    <option>{$value.unidade}</option>
+			    {/loop}	
+			</select>				    
+	</div>
+
+	<div class="col-md-1">
+		<label for="quantidade" class="form-label">Quantidade</label>
+		<input type="number" class="form-control fs-4" id="quantidade" min="0" max="200" step="1" name="quantidade" value="{$reagente.quantidade}" required>
+	</div>
+		
+	<div class="col-md-2">
+		<label for="compra" class="form-label">Compra/registro</label>
+		<input type="date" class="form-control fs-4" id="registro" name="registro" value="{$reagente.registro}">
+	</div>
+	
+	<div class="col-md-2">
+		<label for="validade" class="form-label">Validade</label>
+		<input type="date" class="form-control fs-4" id="validade" name="validade" value="{$reagente.validade}" required>
+	</div>	
+
+	<div class="col-md-3">
+		{$item2="laboratorio"}
+		<label for="lab" class="form-label">Laboratório</label>
+		{if="$info.tipo == '0'"}
+		<a href="/adicionar/{$item2}" ><span data-bs-toggle="tooltip" title="Editar laboratório"><i class="fas fa-edit fs-2" ></i></span></a>
+		{/if}		    
+		<select class="form-select fs-4" id="lab" name="laboratorio">
+			<option selected>{$reagente.laboratorio}</option>
+			{loop="$lista[2]"}
+			{if="$value.laboratorio == $info.laboratorio or $info.tipo == '0'"}
+			<option>{$value.laboratorio}</option>
+			{/if}
+			{/loop}	
+		</select>
+	</div>
+	
+	<div class="col-md-4">
+		{$item4="localizacao"}
+		<label for="lab" class="form-label">Localização</label>
+		<a href="/adicionar/{$item4}" ><span data-bs-toggle="tooltip" title="Editar localização"><i class="fas fa-edit fs-2" ></i></span></a>
+		<select class="form-select fs-4" id="loc" name="localizacao" required="">
+			<option selected>{$reagente.localizacao}</option>
+			{loop="$lista[4]"}
+			<option>{$value.localizacao}</option>
+			{/loop}	
+		</select>
+	</div>	
+	
+	<div class="col-md-4">
+		{$item3="responsavel"}
+		<label for="resp" class="form-label">Responsável</label>
+		<a href="/adicionar/{$item3}"><span data-bs-toggle="tooltip" title="Editar responsável"><i class="fas fa-edit fs-2" ></i></span></a>
+		<select class="form-select fs-4" id="resp" name="responsavel" required="">
+			<option selected>{$reagente.responsavel}</option>
+			{loop="$lista[3]"}
+			<option>{$value.responsavel}</option>
+			{/loop}	
+		</select>				   
+	</div>
+
+	<div class="col-md-7">
+	    <label for="observacoes" class="form-label">Observações (opcional)</label>
+	    <input type="text" class="form-control fs-3" maxlength="45" id="observacoes" name="observacoes" value="{$reagente.observacoes}">
+    </div>
+
+	
+	<div class="col-12">
+		<button class="btn btn-primary fs-4" type="submit"><i class="far fa-save"></i> Salvar</button>
+	</div>
+
+	</form>
+
+	<div class="fs-3 mt-4"><a class="col-1 btn btn-dark fs-4" href="/consulta/voltar" role="button">Voltar</a></div>
+</div>

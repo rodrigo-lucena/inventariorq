@@ -1,0 +1,79 @@
+@font-face {
+     font-family: sacramento;
+     src: url('../fonts/Sacramento-Regular.ttf');
+     font-family: average;
+     src: url('../fonts/Average-Regular.ttf');
+}
+
+#teste {
+	background-color: rgb(240,240,240);
+	background-image: url("../imgs/logo.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+}
+
+#head {
+	width: 400px;
+	margin: 50px auto 20px auto;
+	background-color: rgba(240,240,240,1);
+}
+p {
+	font-family: arial;
+	text-align: center;
+	color: rgb(100,100,100);
+	font-size: 12pt;
+}
+
+#title {
+	font-size: 20pt;
+	color: rgb(50,50,50);
+	text-align: center;
+	font-family: arial;
+	text-shadow: 1px 1px 1px black;
+}
+
+#main {
+	width: 400px;
+	background-color: rgb(255,255,255);
+	box-shadow: 5px 5px 5px black; 
+	margin: auto auto auto auto;
+	padding: 20px;
+}
+
+.form-group{
+	position: relative;
+	margin-top: 20px;
+	font-size: 14pt;
+
+}
+
+.form-group .glyphicon {
+	position: absolute;
+	padding: 10px;
+	pointer-events: none;
+	right: 0px;
+	color: rgb(251,158,13);
+
+}
+.form-group input {
+	height: 40px;
+	font-size: 12pt;
+	color: rgb(40,193,223); 
+
+
+}
+.d-grid button{
+	height: 35px;
+	font-size: 12pt;
+	margin-top: 20px;
+	background-color: rgba(1,153,185,1);
+}
+
+#info{
+	font-size: 10pt;
+	font-family: sacramento;
+	text-align: left;
+	margin-top: 25px;
+}
+

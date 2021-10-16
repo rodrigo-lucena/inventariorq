@@ -1,0 +1,47 @@
+<div class="tab-pane" style="padding: 5px 5px 5px 5px">
+    <section class="content-header" >
+		<h1><i class="fas fa-tasks" style="color: black"></i> Editar marcas</h1>
+	</section>
+	{$item="marca"}
+    <form class="row g-2 fs-4" action="/adicionar/item" method="post" style="margin-top: 10px; padding: 10px 10px 10px 10px">
+		<legend> Incluir Marca</legend>
+	  	<div class="row">
+	  		<input class="col form-control fs-4" type="text" name="marca" required>
+	  		<span class="col-5 position-relative"><button class="btn btn-success btn-xs position-absolute top-50 translate-middle-y" type="submit"><i class="far fa-check-circle"></i>Incluir</button></span>
+	  	</div>
+	</form>
+  	<div class="col-8" style="padding: 5px 5px 5px 5px"> 
+  		<legend class="mt-5"> Excluir/Atualizar Marca</legend>
+  		<div style="overflow-y: auto; height:55vh">
+	  	<table class="table table-striped fs-4">			  
+		  	<tbody>
+	          	{loop="$categoria"}
+	          	<form class="row g-2 fs-4" action="/adicionar/{$item}/{$value.idmarca}" method="post" style="padding: 10px 10px 10px 10px">
+	          		<tr  style="text-align: left">
+	            		<td >{$value.marca}</td>
+	            		<td style="text-align: right">
+	              			<a href="/adicionar/{$item}/{$value.idmarca}/delete" onclick="return confirm('Deseja realmente excluir este registro?')" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Excluir</a>
+	            		</td>
+	            		<td >
+		            		<div class="row">
+		              			<input class="col form-control fs-4" type="text" name="marca" value="{$value.marca}" required>
+		              			<span class="col-4 position-relative"><button type="submit" onclick="return confirm('Deseja realmente modificar este registro? A lista de reagentes poderá ser afetada com essa mudança.')" class="btn btn-primary btn-xs position-absolute top-50 translate-middle-y"><i class="fas fa-undo-alt"></i> Atualizar</button></span>
+		             		</div>
+	  			    	</td >
+	          		</tr>
+	          	</form>
+	          	{/loop}
+	        </tbody>		        
+	   </table>
+	   </div>
+   </div>
+
+   	{if="$voltar[0]=='atualizar'"}
+	<div class="fs-3 mt-4"><a class="col-1 btn btn-dark fs-4" href="/consulta/{$voltar[1]}" role="button">Voltar</a></div>
+	{/if}	
+	{if="$voltar[0]=='adicionar'"}
+	<div class="fs-3 mt-4"><a class="col-1 btn btn-dark fs-4" href="/adicionar" role="button">Voltar</a></div>
+	{/if}
+</div>
+
+

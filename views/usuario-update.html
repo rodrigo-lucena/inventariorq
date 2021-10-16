@@ -1,0 +1,55 @@
+<div class="tab-pane" style="padding: 5px 5px 5px 5px">
+	<section class="content-header mb-2" >
+		<h1><i class="fas fa-usuario" style="color: black"></i> Usuário</h1>
+	</section>	
+	<div id="form">
+		
+		<form class="row g-3 fs-3 p-4" action="/usuarios/{$usuario.idusuario}" method="post">
+			<legend class="fs-3"><i class="far fa-usuario"></i> Identificação do usuário</legend>
+		  
+		    <label for="pnome" class="form-label">Nome</label>
+		    <input type="text" class="form-control fs-3 m-0" id="pnome" name="nome" value="{$usuario.nome}" required>
+		  	  
+		    <label for="sobrenome" class="form-label">Sobrenome</label>
+		    <input type="text" class="form-control fs-3 m-0" id="sobrenome" name="sobrenome" value="{$usuario.sobrenome}" required>
+		  
+		  
+		    <label for="email" class="form-label">Email</label>
+		    <input type="email" class="form-control fs-3 m-0" id="email" name="email" value="{$usuario.email}" required>
+		    
+		    <div>
+		    <input class="form-check-input" type="checkbox" name="tipo" value="1" id="admCheck" {if="$usuario.tipo != 2"}checked{/if}>
+		    <label class="form-check-label fs-4" for="admCheck">Acesso de administrador</label>
+			</div>
+			
+		  <legend class="fs-3"><i class="fas fa-link"></i> Vínculo</legend>
+		  <div class="col-md-5">
+		    <label for="presponsavel" class="form-label">Professor Responsável</label>
+		    <select class="form-select fs-3" id="presponsavel" name="responsavel" required>
+		      <option selected>{$usuario.responsavel}</option>
+	    	  {loop="$lista[1]"}
+	    	  <option>{$value.responsavel}</option>
+	    	  {/loop}	
+		    </select>
+		  </div>
+		  <div class="col-md-5">
+		    <label for="lab" class="form-label">Laboratório</label>
+		    <select class="form-select fs-3" id="lab" name="laboratorio" required>
+		      <option selected>{$usuario.laboratorio}</option>
+	    	  {loop="$lista[0]"}
+	    	  {if="$value.laboratorio == $info.laboratorio or $info.tipo == '0'"}
+	    	  <option>{$value.laboratorio}</option>
+	    	  {/if}
+	    	  {/loop}	
+		    </select>
+		  </div>
+		  <div class="col-12 fs-3 mt-5">
+		    <button class="btn btn-primary fs-3" type="submit">Salvar</button>
+		    <a class="btn btn-dark fs-3 mx-2" href="/usuarios">Cancelar</a>
+		  </div>
+		</form>	
+	</div>
+</div>
+
+
+
