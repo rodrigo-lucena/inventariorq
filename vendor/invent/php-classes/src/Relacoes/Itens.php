@@ -61,7 +61,7 @@ class Itens extends Dados{
 			case 'localizacao':
 				$sql->setMySQL("INSERT INTO localizacao (localizacao, idlaboratorio) VALUES(:LOCALIZACAO, (SELECT idlaboratorio FROM laboratorio WHERE laboratorio = :LABORATORIO))",array(
 				":LOCALIZACAO"=>$this->getlocalizacao(),
-				":LABORATORIO"=>$this->getlaboratorio()
+				":LABORATORIO"=>$_SESSION[Usuario::USUARIO]['laboratorio']
 				));
 				break;			
 			default:

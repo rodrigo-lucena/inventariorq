@@ -253,7 +253,6 @@ $app->post('/adicionar/:item/:iditem', function($item, $iditem) {
 
 $app->post('/adicionar/item', function() {
 	Usuario::verificarAcesso();
-	$_POST['laboratorio'] = $_SESSION[Usuario::USUARIO]['laboratorio'];
 	$categoria = new Itens();
 	$categoria->setDados($_POST);
 	$categoria->salvar(array_keys($_POST)[0]);
